@@ -35,14 +35,14 @@ namespace SearchApp
         string GetText(string filePath)
         {
             FileStream file = null;
+            StreamReader reader = null;
             string text = null;
 
             try
             {
                 file = new FileStream(filePath, FileMode.Open);
-                byte[] input = new byte[file.Length];
-                file.Read(input, 0, input.Length);
-                text = System.Text.Encoding.Default.GetString(input);
+                reader = new StreamReader(file);
+                text = reader.ReadToEnd();
             }
             catch (Exception e)
             {
@@ -52,6 +52,8 @@ namespace SearchApp
             {
                 if (file != null)
                     file.Close();
+                if (reader != null)
+                    reader.Close();
             }
 
             return text;
