@@ -7,13 +7,14 @@ namespace SearchApp
         static void Main(string[] args)
         {
             TXT files = new TXT();
-            files.Explore(@"C:\Users\German\Desktop\A");
+
+            for (int i = 0; i < args.Length; i++)
+            { 
+                files.Explore(args[i]);
+                if (i < args.Length-1)  
+                    Console.WriteLine($"\n\nNext search: {args[i+1]}\n");
+            }
             Console.WriteLine();
-            //foreach (string path in args)
-            //{
-            //    files.Explore(path);
-            //    Console.WriteLine("\nNext search\n");
-            //}
         }
     }
 }

@@ -9,8 +9,9 @@ namespace SearchApp
 {
     static class RuWord
     {
-        static string[] separators = { " ", "\r\n" };
-        static Regex regexNotRu = new Regex(@"[^а-яА-Я.,?!;:]+");
+        static string[] separators = { " ", "-", "\r\n",};
+        static Regex regexNotRu = new Regex(@"[^а-яА-ЯёЁ.,?!;:]+");
+        static Regex regexOnlyLetters = new Regex(@"[а-яА-ЯёЁ]+(.[а-яА-ЯёЁ].)*");
 
         public static List<string> Get(string text)
         {
@@ -25,7 +26,7 @@ namespace SearchApp
             {
                 matches = regexNotRu.Matches(word);
                 if (matches.Count == 0)
-                    ruWords.Add(word);
+                    ruWords.Add(regexOnlyLetters.Match(word).ToString());
             }      
 
             return ruWords;
